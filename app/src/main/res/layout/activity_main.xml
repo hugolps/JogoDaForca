@@ -9,22 +9,65 @@
 
 
     <TextView
-            android:id="@+id/tvPalavra"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Palavra!"
+            android:id="@+id/tvLayout"
+            android:layout_width="258dp"
+            android:layout_height="61dp"
+            android:text="Layout"
+            app:layout_constraintVertical_bias="0.143" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/tvDica" app:layout_constraintHorizontal_bias="0.496"/>
     <TextView
             android:id="@+id/tvDica"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="199dp"
+            android:layout_height="68dp"
             android:text="Dica"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPalavra" />
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.279"
+            app:layout_constraintHorizontal_bias="0.433"/>
+    <EditText
+            android:id="@+id/etLetra"
+            android:layout_width="129dp"
+            android:layout_height="45dp"
+            android:text=""
+            android:ems="10"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.202"
+            android:layout_marginBottom="124dp"/>
+    <Button
+            android:id="@+id/btJogar"
+            android:text="Button"
+            android:layout_width="136dp"
+            android:layout_height="45dp"
+            app:layout_constraintStart_toEndOf="@+id/etLetra" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.673"
+            android:layout_marginBottom="124dp"/>
+    <TextView
+            android:id="@+id/tvLetrasTentadas"
+            android:text=""
+            android:layout_width="210dp"
+            android:layout_height="59dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.863" app:layout_constraintVertical_bias="0.629"
+    />
+    <TextView
+            android:id="@+id/tvChances"
+            android:text=""
+            android:layout_width="106dp"
+            android:layout_height="49dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.111" app:layout_constraintVertical_bias="0.633"/>
+    <TextView
+            android:id="@+id/tvStatus"
+            android:text=""
+            android:layout_width="190dp"
+            android:layout_height="52dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.416" app:layout_constraintVertical_bias="0.195"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

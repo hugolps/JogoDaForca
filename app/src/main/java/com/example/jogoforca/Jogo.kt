@@ -8,6 +8,7 @@ class Jogo(val secretWord: String, val hint: String) {
     var endGame = false
     var chances = 6
     var hits = 0
+    var status = ""
 
     // Escondendo a palavra
     init {
@@ -20,8 +21,21 @@ class Jogo(val secretWord: String, val hint: String) {
         return this.hint
     }
 
+    fun usedLetters(): MutableList<String>{
+        return usedLetters
+    }
+
+    fun chances(): String{
+        return chances.toString()
+    }
+
+    fun status(): String{
+        return status
+    }
+
     fun asksecretWord(): String{
-        return this.secretWord
+        val word = printSecretWord()
+        return word
     }
 
     fun size(): String {
@@ -60,10 +74,22 @@ class Jogo(val secretWord: String, val hint: String) {
     }
 
     //Pergutar a letra ao jogador e avaliar o acerto
-    fun askLetter(word: String) {
+    fun askLetter(chosenLetter: String) {
+        val word = secretWord
+
+        if (hits == word.length) {
+            status = "Vitória"
+            endGame = true
+            return
+        }
+
+        if (chances == 0) {
+            status = "DERROTA"
+            endGame = true
+            return
+        }
+
         if (chances > 0 && hits < word.length) {
-            println("Informe uma letra: ")
-            val chosenLetter = readLine()!!
 
             if (word.contains(chosenLetter)) {
                 changeLetter(chosenLetter, word)
@@ -71,23 +97,9 @@ class Jogo(val secretWord: String, val hint: String) {
             }
             else if (!usedLetters.contains(chosenLetter) && !word.contains(chosenLetter) && chances > 0) {
                 usedLetters.add(chosenLetter)
-                println("Letras já tentadas $usedLetters")
                 chances--
                 return
-            } else {
-                println("A letra $chosenLetter já foi utilizada. Tente outra letra")
             }
-
-        } else if (chances == 0) {
-            println("Você PERDEU!")
-            println("FIM DO JOGO")
-            endGame = true
-            return
-        } else if (hits == word.length) {
-            println("Você VENCEU!")
-            println("FIM DO JOGO")
-            endGame = true
-            return
         }
     }
 

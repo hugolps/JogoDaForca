@@ -70,24 +70,19 @@ class Jogo(val secretWord: String, val hint: String) {
                 hiddenWord[i] = TriedLetter
                 hits++
             }
+
+            if (hits == word.length) {
+                endGame = true
+                status = "VITÓRIA"
+                return
+            }
+
         }
     }
 
     //Pergutar a letra ao jogador e avaliar o acerto
     fun askLetter(chosenLetter: String) {
         val word = secretWord
-
-        if (hits == word.length) {
-            status = "Vitória"
-            endGame = true
-            return
-        }
-
-        if (chances == 0) {
-            status = "DERROTA"
-            endGame = true
-            return
-        }
 
         if (chances > 0 && hits < word.length) {
 
@@ -98,6 +93,12 @@ class Jogo(val secretWord: String, val hint: String) {
             else if (!usedLetters.contains(chosenLetter) && !word.contains(chosenLetter) && chances > 0) {
                 usedLetters.add(chosenLetter)
                 chances--
+
+                if (chances == 0) {
+                    endGame = true
+                    status = "DERROTA"
+                    return
+                }
                 return
             }
         }

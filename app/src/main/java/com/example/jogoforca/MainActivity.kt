@@ -1,5 +1,7 @@
 package com.example.jogoforca
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -9,14 +11,15 @@ import android.view.View
 import android.util.Log
 import android.widget.Toast
 
-import com.example.jogoforca.Banco
-import com.example.jogoforca.Jogo
+
+//import com.example.jogoforca.Banco
+//import com.example.jogoforca.Jogo
 
 class MainActivity : AppCompatActivity() {
 
 
     private lateinit var tvLayout: TextView
-    private  lateinit var banco: Banco
+    private lateinit var banco: Banco
     private lateinit var jogo: Jogo
     private lateinit var tvDica: TextView
     private lateinit var etLetra: EditText
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvLetrasTentadas: TextView
     private lateinit var tvChances: TextView
     private lateinit var tvStatus: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,18 +44,53 @@ class MainActivity : AppCompatActivity() {
         this.tvChances = findViewById(R.id.tvChances)
         this.tvStatus = findViewById(R.id.tvStatus)
 
-
         this.tvLayout.text = this.jogo.printSecretWord()
         this.tvDica.text = this.jogo.askHint()
 
         this.btJogar.setOnClickListener(ButtonClick())
+
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
+    private fun fimDoJogo() {
+        Log.i("APP_FORCA", "teste 1")
+        val status = this@MainActivity.jogo.status()
+        if(status == "VITÓRIA") {
+            Log.i("APP_FORCA", "teste 2")
+            val intent = Intent(this, EndGameActivity::class.java).apply {
+                putExtra("Resultado", "VITÓRIA")
+            }
+            if(intent.resolveActivity(packageManager) != null) {
+                Log.i("APP_FORCA", "teste 3")
+                startActivity(intent)
+                Log.i("APP_FORCA", "teste 4")
+                }
+        } else {
+            Log.i("APP_FORCA", "teste 5")
+            val intent = Intent(this, EndGameActivity::class.java).apply {
+                putExtra("Resultado", "DERROTA")
+            }
+            if(intent.resolveActivity(packageManager) != null) {
+                Log.i("APP_FORCA", "teste 6")
+                startActivity(intent)
+                }
+            }
+        }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateView() {
+        this@MainActivity.etLetra.setText("")
+        this@MainActivity.tvLayout.text = "PALAVRA SECRETA:       " + this@MainActivity.jogo.printSecretWord()
+        this@MainActivity.tvLetrasTentadas.text  = "Letras tentada: " + this@MainActivity.jogo.usedLetters().toString()
+        this@MainActivity.tvChances.text = "Chances restantes: " + this@MainActivity.jogo.chances()
+        this@MainActivity.tvStatus = findViewById(R.id.tvStatus)
+
+    }
 
 
     inner class ButtonClick: View.OnClickListener{
 
-         override fun onClick(p0: View?) {
+        override fun onClick(p0: View?) {
 //             Log.i("APP_FORCA", "teste 1"+ this@MainActivity.jogo.status())
 
              val letter = this@MainActivity.etLetra.text.toString().uppercase()
@@ -71,24 +110,11 @@ class MainActivity : AppCompatActivity() {
              updateView()
 
              if (this@MainActivity.jogo.endGame) {
+                 Log.i("APP_FORCA", "teste A")
                  fimDoJogo()
+                 Log.i("APP_FORCA", "teste B")
              }
          }
 
-        private fun updateView() {
-            this@MainActivity.etLetra.setText("")
-            this@MainActivity.tvLayout.text = "PALAVRA SECRETA:       " + this@MainActivity.jogo.printSecretWord()
-            this@MainActivity.tvLetrasTentadas.text  = "Letras tentada: " + this@MainActivity.jogo.usedLetters().toString()
-            this@MainActivity.tvChances.text = "Chances restantes: " + this@MainActivity.jogo.chances()
-            this@MainActivity.tvStatus = findViewById(R.id.tvStatus)
-
-        }
-
-        private fun fimDoJogo() {
-
-            this@MainActivity.tvStatus.text  = "Fim de Jogo " + this@MainActivity.jogo.status()
-
-
-        }
     }
 }

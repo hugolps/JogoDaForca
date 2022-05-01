@@ -53,25 +53,21 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("QueryPermissionsNeeded")
     private fun fimDoJogo() {
-        Log.i("APP_FORCA", "teste 1")
         val status = this@MainActivity.jogo.status()
         if(status == "VITÓRIA") {
-            Log.i("APP_FORCA", "teste 2")
             val intent = Intent(this, EndGameActivity::class.java).apply {
                 putExtra("Resultado", "VITÓRIA")
+                putExtra("PalavraCerta", this@MainActivity.jogo.printSecretWord())
             }
             if(intent.resolveActivity(packageManager) != null) {
-                Log.i("APP_FORCA", "teste 3")
                 startActivity(intent)
-                Log.i("APP_FORCA", "teste 4")
                 }
         } else {
-            Log.i("APP_FORCA", "teste 5")
             val intent = Intent(this, EndGameActivity::class.java).apply {
                 putExtra("Resultado", "DERROTA")
+                putExtra("PalavraCerta", this@MainActivity.jogo.printSecretWord())
             }
             if(intent.resolveActivity(packageManager) != null) {
-                Log.i("APP_FORCA", "teste 6")
                 startActivity(intent)
                 }
             }
@@ -110,9 +106,7 @@ class MainActivity : AppCompatActivity() {
              updateView()
 
              if (this@MainActivity.jogo.endGame) {
-                 Log.i("APP_FORCA", "teste A")
                  fimDoJogo()
-                 Log.i("APP_FORCA", "teste B")
              }
          }
 

@@ -14,27 +14,28 @@ class EndGameActivity : AppCompatActivity() {
 
     private lateinit var tvResultado: TextView
     private lateinit var btRecomecar: Button
+    private lateinit var tvPalavraCerta: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_eng_game)
+        setContentView(R.layout.activity_end_game)
 
         this.tvResultado = findViewById(R.id.tvResultado)
+        this.tvPalavraCerta = findViewById(R.id.tvPalavraCerta)
 
 
         if(intent.hasExtra("Resultado")) {
             val resultado = intent.getStringExtra("Resultado")
+            this.tvPalavraCerta.text = intent.getStringExtra("PalavraCerta")
             if(resultado.equals("DERROTA")) {
                 this.tvResultado.text = "DERROTA"
             } else if(resultado.equals("VITÓRIA")){
                 this.tvResultado.text = "VITÓRIA"
             }
         }
-        Log.i("APP_FORCA", "teste X")
         this.btRecomecar = findViewById(R.id.btRecomecar)
-        Log.i("APP_FORCA", "teste Y")
         this.btRecomecar.setOnClickListener{recomecar()}
-        Log.i("APP_FORCA", "teste Z")
     }
 
     fun recomecar() {
